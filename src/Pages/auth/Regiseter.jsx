@@ -127,3 +127,24 @@ const Register = () => {
               ))}
             </select>
           </div>
+<button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-medium rounded-lg py-2 text-sm transition"
+          >
+            {loading ? "Creating account..." : "Create Account"}
+          </button>
+        </form>
+
+        <p className="text-sm text-center text-gray-500 mt-6">
+          Already have an account?{" "}
+          <Link to="/login" className="text-blue-600 hover:underline font-medium">
+            Sign in
+          </Link>
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default Register;
