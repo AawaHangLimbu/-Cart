@@ -84,3 +84,56 @@ const DriverDashboard = () => {
         <StatCard label="Pending"   value={pending.length}   color="text-yellow-500" />
         <StatCard label="Delivered" value={delivered.length} color="text-green-600"  />
       </div>
+
+      {/* Active delivery CTA */}
+      {active.length > 0 && (
+        <div className="bg-purple-600 text-white rounded-2xl p-5 mb-6 flex items-center justify-between">
+          <div>
+            <p className="text-sm opacity-80">Currently delivering</p>
+            <p className="font-semibold mt-0.5">Order #{active[0].id}</p>
+          </div>
+          <Link
+            to={`/driver/live/${active[0].id}`}
+            className="bg-white text-purple-600 text-sm font-medium px-4 py-2 rounded-xl hover:bg-purple-50 transition"
+          >
+            Open Map
+          </Link>
+        </div>
+      )}
+
+      {/* Assigned orders */}
+      <h2 className="text-base font-semibold text-gray-700 mb-3">
+        Assigned Orders ({orders.length})
+      </h2>
+
+      {orders.length === 0 ? (
+        <div className="text-center text-gray-400 py-16">No assigned orders yet.</div>
+      ) : (
+        <div className="space-y-3">
+          {orders.map((order) => (
+            <Link
+              key={order.id}
+              to={`/driver/deliveries/${order.id}`}
+              className="block bg-white rounded-2xl shadow-sm p-4 hover:shadow-md transition"
+            >
+              <div className="flex items-center justify-between mb-2">
+                <p className="font-medium text-gray-800">Order #{order.id}</p>
+                <StatusBadge status={order.status} />
+              </div>
+              <p className="text-sm text-gray-500">
+                {order.items?.length || 0} item(s) · Rs. {order.total_price}
+              </p>
+              {order.location?.landmark && (
+                <p className="text-xs text-gray-400 mt-1">
+                  📍 {order.location.landmark}
+                </p>
+              )}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default DriverDashboard;
