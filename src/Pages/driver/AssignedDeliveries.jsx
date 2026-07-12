@@ -171,3 +171,28 @@ const AssignedDeliveries = () => {
         </div>
       </div>
 
+      {/* Action button */}
+      {nextStatus ? (
+        <button
+          onClick={handleAdvanceStatus}
+          disabled={updating}
+          className="w-full bg-purple-600 hover:bg-purple-700 disabled:opacity-50 text-white font-medium rounded-2xl py-3 text-sm transition"
+        >
+          {updating
+            ? "Updating..."
+            : nextStatus === "out_for_delivery"
+            ? "🚀 Start Delivery"
+            : nextStatus === "delivered"
+            ? "✅ Mark as Delivered"
+            : `Advance to "${nextStatus.replace(/_/g, " ")}"`}
+        </button>
+      ) : (
+        <div className="w-full bg-green-50 text-green-600 font-medium rounded-2xl py-3 text-sm text-center">
+          ✅ Delivery Complete
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default AssignedDeliveries;
