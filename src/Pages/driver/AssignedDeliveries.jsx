@@ -134,7 +134,7 @@ const AssignedDeliveries = () => {
           <div className="space-y-1">
             {order.location.landmark && (
               <p className="text-sm text-gray-800">
-                📍 <span className="font-medium">{order.location.landmark}</span>
+                 <span className="font-medium">{order.location.landmark}</span>
               </p>
             )}
             {order.location.description && (
@@ -181,14 +181,14 @@ const AssignedDeliveries = () => {
           {updating
             ? "Updating..."
             : nextStatus === "out_for_delivery"
-            ? "🚀 Start Delivery"
+            ? " Start Delivery"
             : nextStatus === "delivered"
-            ? "✅ Mark as Delivered"
+            ? "✅Mark as Delivered"
             : `Advance to "${nextStatus.replace(/_/g, " ")}"`}
         </button>
       ) : (
         <div className="w-full bg-green-50 text-green-600 font-medium rounded-2xl py-3 text-sm text-center">
-          ✅ Delivery Complete
+          Delivery Complete
         </div>
       )}
     </div>
