@@ -136,3 +136,77 @@ const LiveTracking = () => {
         </div>
       )}
 
+      {/* Map */}
+      <div className="flex-1 relative">
+        <MapContainer
+          center={mapCenter}
+          zoom={15}
+          style={{ height: "100%", minHeight: "400px", width: "100%" }}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {position && (
+            <Marker position={position} icon={driverIcon}>
+              <Popup>You are here</Popup>
+            </Marker>
+          )}
+          {order?.location && (
+            <Marker position={[order.location.latitude, order.location.longitude]}>
+              <Popup>
+                <p className="font-medium">{order.location.landmark || "Customer"}</p>
+                {order.location.description && (
+                  <p className="text-xs text-gray-500 mt-0.5">{order.location.description}</p>
+                )}
+              </Popup>
+            </Marker>
+          )}
+          <RecenterMap position={position} />
+        </MapContainer>
+      </div>
+
+      {/* Controls */}
+      <div className="bg-white px-6 py-5 space-y-3 shadow-[0_-4px_12px_rgba(0,0,0,0.06)]">
+        {/* Delivery info */}
+        {order?.location?.landmark && (
+          <div className="bg-gray-50 rounded-xl px-4 py-3">
+            <p className="text-xs text-gray-400">Delivering to</p>
+            <p className="text-sm font-medium text-gray-800 mt-0.5">
+              📍 {order.location.landmark}
+            </p>
+            {order.location.description && (
+              <p className="text-xs text-gray-500 mt-0.5">{order.location.description}</p>
+            )}
+          </div>
+        )}
+
+        {!tracking ? (
+          <button
+            onClick={startTracking}
+            className="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-2xl py-3 text-sm transition"
+          >
+            🚀 Start Sharing Location
+          </button>
+        ) : (
+          <button
+            onClick={stopTracking}
+            className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-2xl py-3 text-sm transition"
+          >
+            ⏸ Pause Location Sharing
+          </button>
+        )}
+
+        <button
+          onClick={handleCompleteDelivery}
+          disabled={completing}
+          className="w-full bg-green-600 hover:bg-green-700 disabled:opacity-50 text-white font-medium rounded-2xl py-3 text-sm transition"
+        >
+          {completing ? "Completing..." : "✅ Mark as Delivered"}
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default LiveTracking;
