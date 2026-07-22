@@ -155,3 +155,26 @@ const ProductDetails = () => {
                   disabled={adding || outOfStock}
                   className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-medium rounded-xl py-2.5 text-sm transition"
                 >
+                  {adding ? "Adding..." : "Buy Now"}
+                </button>
+                <button
+                  onClick={handleAddToCart}
+                  disabled={adding || outOfStock}
+                  className={`w-full font-medium rounded-xl py-2.5 text-sm transition border ${
+                    added
+                      ? "bg-green-50 text-green-600 border-green-200"
+                      : "bg-white text-blue-600 border-blue-200 hover:bg-blue-50"
+                  }`}
+                >
+                  {added ? "✓ Added to Cart" : outOfStock ? "Out of Stock" : "Add to Cart"}
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ProductDetails;
