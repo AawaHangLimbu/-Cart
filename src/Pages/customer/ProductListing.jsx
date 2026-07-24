@@ -114,4 +114,21 @@ const ProductListing = () => {
                     : "bg-white hover:bg-gray-50"
                 }`}
               >
-   
+                {i + 1}
+              </button>
+            ))}
+            <button
+              onClick={() => setParam("page", String(page + 1))}
+              disabled={page >= totalPages}
+              className="px-4 py-2 text-sm rounded-xl border bg-white disabled:opacity-40 hover:bg-gray-50"
+            >
+              Next →
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default ProductListing;
