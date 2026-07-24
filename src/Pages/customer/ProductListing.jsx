@@ -59,3 +59,59 @@ const ProductListing = () => {
             className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
           />
         </div>
+
+        {/* Category filter */}
+        <div className="mb-6">
+          <CategoryFilter
+            selected={category}
+            onChange={(val) => setParam("category", val)}
+          />
+        </div>
+
+        {/* Results header */}
+        <div className="flex items-center justify-between mb-4">
+          <p className="text-sm text-gray-500">
+            {loading
+              ? "Loading..."
+              : `${products.length} product${products.length !== 1 ? "s" : ""} found`}
+          </p>
+          {category && (
+            <button
+              onClick={() => setParam("category", "")}
+              className="text-xs text-blue-500 hover:underline"
+            >
+              Clear filter
+            </button>
+          )}
+        </div>
+
+        {error && (
+          <div className="bg-red-50 text-red-600 text-sm rounded-xl px-4 py-3 mb-4">
+            {error}
+          </div>
+        )}
+
+        {/* Grid */}
+        <ProductGrid products={products} loading={loading} />
+
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="flex justify-center gap-2 mt-8">
+            <button
+              onClick={() => setParam("page", String(page - 1))}
+              disabled={page <= 1}
+              className="px-4 py-2 text-sm rounded-xl border bg-white disabled:opacity-40 hover:bg-gray-50"
+            >
+              ← Prev
+            </button>
+            {Array.from({ length: totalPages }).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setParam("page", String(i + 1))}
+                className={`px-4 py-2 text-sm rounded-xl border transition ${
+                  page === i + 1
+                    ? "bg-blue-600 text-white border-blue-600"
+                    : "bg-white hover:bg-gray-50"
+                }`}
+              >
+   
